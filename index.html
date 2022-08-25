@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main class="mainGrid">
+        <h1 class="titulo">Algoritmo para caculo de codigo verificador de CI uruguaya</h1>
+        <div class="parrafo">
+            <p>Este es el algoritmo que se necesita para verificar la CI uruguaya:</p>
+            <p>
+                Se toman los primeros siete numeros y se multiplican cada uno (respetando el lugar, es decir: primero x
+                primero, segundo por segundo) por 2987634.
+            </p>
+            <p>
+                Ejemplo:
+            </p>
+            <ol>
+                Si la cédula es 1234567 la cuenta quedaría así: 1x2+2x9+3x8+4x7+5x6+6x3+7x4 = 148.
+            </ol>
+            <ol>
+                Se toma el resultado y se le busca el numero mayor que termina en 0 y se le resta. Ej: 150-148= 2.
+            </ol>
+            <ol>
+                El número 2 es el dígito verificador para la cédula 1234567
+            </ol>
+        </div>
+        <img class="cedula" src="./images/me.png" alt="Mi cedula">
+    </main>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+.mainGrid{
+    grid-template-areas: 
+    "titulo titulo"
+    "parrafo parrafo"
+    "cedula cedula";
+}
+
+.titulo{
+    grid-area: titulo;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    background-color: black;
+    width: 1000px;
+    margin: 5px auto 5px auto;
+    padding: 10px;
+}
+
+.parrafo{
+    grid-area: parrafo;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: justify;
+    width: 1000px;
+    margin: 5px auto 5px auto;
+    border: solid 2px black;
+    padding: 10px;
+}
+
+.cedula{
+    grid-area: cedula;
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    margin: 5px auto 5px auto;
+}
