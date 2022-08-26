@@ -1,8 +1,7 @@
 .mainGrid{
     grid-template-areas: 
     "titulo titulo"
-    "parrafo parrafo"
-    "cedula cedula";
+    "parrafo parrafo";
 }
 
 .titulo{
@@ -25,12 +24,4 @@
     margin: 5px auto 5px auto;
     border: solid 2px black;
     padding: 10px;
-}
-
-.cedula{
-    grid-area: cedula;
-    display: flex;
-    justify-content: center;
-    width: 400px;
-    margin: 5px auto 5px auto;
 }
