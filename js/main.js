@@ -1,18 +1,42 @@
-let digitoUno = parseInt(prompt('Vamos a calcular el número verificador de su cedula de identidad. A continuación ingrese el primer digito de su cedula (en caso de ser menor a 1 millon, ingrese 0).'))
-let digitoDos = parseInt(prompt('Ingrese el segundo número.'))
-let digitoTres = parseInt(prompt('Ingrese el tercer número.'))
-let digitoCuatro = parseInt(prompt('Ingrese el cuarto número.'))
-let digitoCinco = parseInt(prompt('Ingrese el quinto número.'))
-let digitoSeis = parseInt(prompt('Ingrese el sexto número.'))
-let digitoSiete = parseInt(prompt('Ingrese el séptimo número.'))
+let costoTotal = parseInt(prompt('Ingrese el costo de su compra (UYU).'))
+let pagoAdelanto = parseInt(prompt('Ingrese si desea pagar una parte del costo por adelantado (UYU).'))
+let numeroCuotas = parseInt(prompt('Ingrese número de cuotas (de seleccionar el pago en más de 6 cuotas, aplica un interes del 5%).'));
 
-let numeroPrimario = digitoUno * 2 + digitoDos * 9 + digitoTres * 8 + digitoCuatro * 7 + digitoCinco * 6 + digitoSeis * 3 + digitoSiete * 4
+function valorCuota(costoTotal, pagoAdelanto, numeroCuotas) {
+    let total = 0;
 
-for( let numeroSecundario = numeroPrimario; numeroSecundario <= 1000; numeroSecundario++){
-    let verificador = numeroSecundario % 10
-    if(verificador != 0){
-        continue
+    if (pagoAdelanto > 0) {
+        total = costoTotal - pagoAdelanto;
+    } else {
+        total = costoTotal
     }
-    alert('Su numero verificador es ' + (numeroSecundario - numeroPrimario))
-    break
+
+    let cuotaMes = 0
+
+    if (numeroCuotas <= 6) {
+        cuotaMes = total / numeroCuotas;
+    } else {
+        cuotaMes = total * 1.05 / numeroCuotas;
+    }
+
+    return cuotaMes
 }
+
+const cuotaMes = valorCuota(costoTotal, pagoAdelanto, numeroCuotas)
+
+function avisoFinal() {
+    if (numeroCuotas <= 6) {
+            alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU.`)
+    } else if (numeroCuotas > 6) {
+        alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU (se ha aplicado un 5% de interes).`)
+    } else {
+        alert('Ningún dato ha sido ingresado.')
+    }
+}
+
+avisoFinal ()
+
+console.log(costoTotal)
+console.log(pagoAdelanto)
+console.log(numeroCuotas)
+console.log(`El valor de la cuota es de ${parseInt(cuotaMes)} UYU para las ${numeroCuotas} cuotas seleccionadas.`)

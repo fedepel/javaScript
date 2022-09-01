@@ -11,7 +11,7 @@
     text-transform: uppercase;
     color: white;
     background-color: black;
-    width: 1000px;
+    width: 80%;
     margin: 5px auto 5px auto;
     padding: 10px;
 }
@@ -20,7 +20,7 @@
     grid-area: parrafo;
     font-family: Arial, Helvetica, sans-serif;
     text-align: justify;
-    width: 1000px;
+    width: 80%;
     margin: 5px auto 5px auto;
     border: solid 2px black;
     padding: 10px;
