@@ -1,6 +1,16 @@
-let costoTotal = parseInt(prompt('Ingrese el costo de su compra (UYU).'))
-let pagoAdelanto = parseInt(prompt('Ingrese si desea pagar una parte del costo por adelantado (UYU).'))
-let numeroCuotas = parseInt(prompt('Ingrese número de cuotas (de seleccionar el pago en más de 6 cuotas, aplica un interes del 5%).'));
+let numeroDeCompras = prompt("¿Cuantas compras realizó?");
+let suma = 0;
+
+for (let i = 1; i <= numeroDeCompras; i++) {
+    let compra = prompt(`Ingrese el valor de su compra No ${i}`);
+    suma = suma + parseInt(compra);
+}
+
+alert(`Su compra total aciende a ${suma} UYU.`)
+
+let costoTotal = suma
+let pagoAdelanto = parseInt(prompt(`Ingrese si desea pagar parte de los ${suma} UYU por adelantado.`))
+let numeroCuotas = parseInt(prompt('Ingrese número de cuotas en que desea pagar (de seleccionar el pago en más de 6 cuotas, aplica un interes del 5%).'));
 
 function valorCuota(costoTotal, pagoAdelanto, numeroCuotas) {
     let total = 0;
@@ -26,7 +36,7 @@ const cuotaMes = valorCuota(costoTotal, pagoAdelanto, numeroCuotas)
 
 function avisoFinal() {
     if (numeroCuotas <= 6) {
-            alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU.`)
+        alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU.`)
     } else if (numeroCuotas > 6) {
         alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU (se ha aplicado un 5% de interes).`)
     } else {
@@ -34,7 +44,7 @@ function avisoFinal() {
     }
 }
 
-avisoFinal ()
+avisoFinal()
 
 console.log(costoTotal)
 console.log(pagoAdelanto)
