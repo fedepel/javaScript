@@ -1,7 +1,9 @@
 .mainGrid{
     grid-template-areas: 
     "titulo titulo"
-    "parrafo parrafo";
+    "parrafo parrafo"
+    "comprasGrid comprasGrid"
+    "pagoGrid pagoGrid"; 
 }
 
 .titulo{
@@ -24,4 +26,43 @@
     margin: 5px auto 5px auto;
     border: solid 2px black;
     padding: 10px;
+}
+
+.comprasGrid{
+    grid-area: comprasGrid;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    background-color: black;
+    width: 80%;
+    margin: 5px auto 5px auto;
+    padding: 10px;
+}
+
+.cardName {
+    background-color: gray;
+    color: white;
+}
+
+.cardPrice {
+    background-color: black;
+    color: white;
+}
+
+.pagoGrid{
+    grid-area: pagoGrid;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    background-color: black;
+    width: 80%;
+    margin: 5px auto 5px auto;
+    padding: 10px;
+}
+
+.costos {
+    background-color: red;
+    color: white;
 }

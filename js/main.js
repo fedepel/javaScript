@@ -6,6 +6,39 @@ class Compra {
     }
 }
 
+//------------ IMPRIMIR PRODUCTOS EN EL DOM -------------//
+function pintarContenedor() {
+    const contenedorCompra = document.getElementById("contenedor-compra");
+
+    for (const compra of compras) {
+        let column = document.createElement("div");
+        column.className = "col-md-4 mt-3 ";
+        column.innerHTML = `
+        <div class="card">
+            <div class="card-body">
+            <p class="cardName">Nombre: <b>${compra.nombre}</b></p>
+            <p class="cardPrice">Precio compra: <b>${compra.costo} UYU</b></p>
+            </div>
+        </div>`;
+
+        contenedorCompra.append(column);
+    }
+}
+
+//------------ IMPRIMIR INFO DE PAGO EN EL DOM -------------//
+function pintarPago(costoTotal, pagoAdelanto, numeroCuotas, cuotaMes) {
+    const contenedorPago = document.getElementById("contenedor-pago");
+    let column = document.createElement("div");
+    column.className = "col mt-3";
+    column.innerHTML = `
+            <p class="costos">Costo total: <b>${parseInt(costoTotal)} UYU</b></p>
+            <p class="costos">Pago adelantado: <b>${parseInt(pagoAdelanto)} UYU</b></p>
+            <p class="costos">Número de cuotas: <b>${parseInt(numeroCuotas)}</b></p>
+            <p class="costos">Número de cuotas: <b>${parseInt(cuotaMes)} UYU</b></p>`;
+
+    contenedorPago.append(column);
+}
+
 //------ FUNDCION AGREGAR COMPRAS -------//
 function agregarCompras() {
     let numeroCompras = parseInt(
@@ -42,6 +75,7 @@ function valorCuota(costoTotal, pagoAdelanto, numeroCuotas) {
     } else {
         cuotaMes = total * 1.05 / numeroCuotas;
     }
+    pintarPago(costoTotal, pagoAdelanto, numeroCuotas, cuotaMes)
     return cuotaMes
 }
 
@@ -66,6 +100,7 @@ function procesarCarrito() {
                 switch (opcionSeleccionada) {
                     case 1:
                         compras = agregarCompras();
+                        pintarContenedor();
                         break;
                     case 2:
                         let costoTotal = calcularCosto(compras);
