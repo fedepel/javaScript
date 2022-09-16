@@ -1,148 +1,140 @@
-////////////////////////////////////////////////////////////////////////////////
-//-------------------------------------Variables------------------------------//
-////////////////////////////////////////////////////////////////////////////////
-const baseDeDatos = [
-    { id: 1, nombre: 'Super Mario Odissey', precio: 90, imagen: '../images/super-mario-odyssey.jpg' },
-    { id: 2, nombre: 'Mario Party Superstars', precio: 90, imagen: '../images/mario-party-superstars.jpg' },
-    { id: 3, nombre: 'Zelda - Breath of the wild', precio: 90, imagen: '../images/zelda-breath-of-the-wild.jpg' },
-    { id: 4, nombre: 'Pokemon Legends - ARCEUS', precio: 110, imagen: '../images/pokemon-legends-arceus.jpg' },
-    { id: 5, nombre: 'Pokemon Scarlet', precio: 120, imagen: '../images/pokemon-scarlet.jpg' },
-    { id: 6, nombre: 'Pokemon Violet', precio: 120, imagen: '../images/pokemon-violet.jpg' }
-];
-
-let carrito = [];
-const divisa = 'USD';
-const DOMitems = document.querySelector('#items');
-const DOMcarrito = document.querySelector('#carrito');
-const DOMtotal = document.querySelector('#total');
-const DOMbotonVaciar = document.querySelector('#boton-vaciar');
-
-////////////////////////////////////////////////////////////////////////////////
-//-------------------------------------Funciones------------------------------//
-////////////////////////////////////////////////////////////////////////////////
-
-//-------------------------Dibujar productos en el HTML-----------------------//
-
-function renderizarProductos() {
-    baseDeDatos.forEach((info) => {
-
-        const miNodo = document.createElement('div');
-        miNodo.classList.add('card', 'col-5');
-
-        const miNodoCardBody = document.createElement('div');
-        miNodoCardBody.classList.add('card-body');
-
-        const miNodoTitle = document.createElement('h5');
-        miNodoTitle.classList.add('card-title');
-        miNodoTitle.textContent = info.nombre;
-
-        const miNodoImagen = document.createElement('img');
-        miNodoImagen.classList.add('img-fluid');
-        miNodoImagen.setAttribute('src', info.imagen);
-
-        const miNodoPrecio = document.createElement('p');
-        miNodoPrecio.classList.add('card-text');
-        miNodoPrecio.textContent = `${info.precio} ${divisa}`;
-
-        const miNodoBoton = document.createElement('button');
-        miNodoBoton.classList.add('btn', 'btn-primary', 'btn2');
-        miNodoBoton.textContent = 'Agregar al carrito';
-        miNodoBoton.setAttribute('marcador', info.id);
-        miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
-
-        miNodoCardBody.appendChild(miNodoImagen);
-        miNodoCardBody.appendChild(miNodoTitle);
-        miNodoCardBody.appendChild(miNodoPrecio);
-        miNodoCardBody.appendChild(miNodoBoton);
-        miNodo.appendChild(miNodoCardBody);
-        DOMitems.appendChild(miNodo);
-    });
+//----- GENERADOR DE OBJETO ------ //
+class Compra {
+    constructor(nombre, costo) {
+        this.nombre = nombre.toUpperCase();
+        this.costo = costo;
+    }
 }
 
-//-------------------------Evento para añadir al carrito-----------------------//
+//------------ IMPRIMIR PRODUCTOS EN EL DOM -------------//
+function pintarContenedor() {
+    const contenedorCompra = document.getElementById("contenedor-compra");
 
-function anyadirProductoAlCarrito(evento) {
+    for (const compra of compras) {
+        let column = document.createElement("div");
+        column.className = "col-md-4 mt-3 ";
+        column.innerHTML = `
+        <div class="card">
+            <div class="card-body">
+            <p class="cardName">Nombre: <b>${compra.nombre}</b></p>
+            <p class="cardPrice">Precio compra: <b>${compra.costo} UYU</b></p>
+            </div>
+        </div>`;
 
-    carrito.push(evento.target.getAttribute('marcador'))
-
-    renderizarCarrito();
-
+        contenedorCompra.append(column);
+    }
 }
 
-//----------------Agrega los productos seleccionados al carrito----------------//
+//------------ IMPRIMIR INFO DE PAGO EN EL DOM -------------//
+function pintarPago(costoTotal, pagoAdelanto, numeroCuotas, cuotaMes) {
+    const contenedorPago = document.getElementById("contenedor-pago");
+    let column = document.createElement("div");
+    column.className = "col mt-3";
+    column.innerHTML = `
+            <p class="costos">Costo total: <b>${parseInt(costoTotal)} UYU</b></p>
+            <p class="costos">Pago adelantado: <b>${parseInt(pagoAdelanto)} UYU</b></p>
+            <p class="costos">Número de cuotas: <b>${parseInt(numeroCuotas)}</b></p>
+            <p class="costos">Número de cuotas: <b>${parseInt(cuotaMes)} UYU</b></p>`;
 
-function renderizarCarrito() {
-
-    DOMcarrito.textContent = '';
-
-    const carritoSinDuplicados = [...new Set(carrito)];
-
-    carritoSinDuplicados.forEach((item) => {
-
-        const miItem = baseDeDatos.filter((itemBaseDatos) => {
-
-            return itemBaseDatos.id === parseInt(item);
-        });
-
-        const numeroUnidadesItem = carrito.reduce((total, itemId) => {
-
-            return itemId === item ? total += 1 : total;
-        }, 0);
-
-        const miNodo = document.createElement('li');
-        miNodo.classList.add('list-group-item', 'text-center', 'lista');
-        miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
-
-        const miBoton = document.createElement('button');
-        miBoton.classList.add('btn', 'btn-danger', 'mx-2');
-        miBoton.textContent = 'X';
-        miBoton.style.marginLeft = '1rem';
-        miBoton.dataset.item = item;
-        miBoton.addEventListener('click', borrarItemCarrito);
-
-        miNodo.appendChild(miBoton);
-        DOMcarrito.appendChild(miNodo);
-    });
-
-    DOMtotal.textContent = calcularTotal();
+    contenedorPago.append(column);
 }
 
-//----------------Eliminar los productos seleccionados al carrito----------------//
-
-function borrarItemCarrito(evento) {
-
-    const id = evento.target.dataset.item;
-
-    carrito = carrito.filter((carritoId) => {
-        return carritoId !== id;
-    });
-
-    renderizarCarrito();
+//------ FUNDCION AGREGAR COMPRAS -------//
+function agregarCompras() {
+    let numeroCompras = parseInt(
+        prompt("Cuantos compras necesita registrar en su carrito?")
+    );
+    let compras = [];
+    for (let index = 0; index < numeroCompras; index++) {
+        let nombre = prompt("Ingresa el nombre del articulo comprado.");
+        let costo = parseFloat(prompt("Ingresa el costo del producto."));
+        let objetoCompra = new Compra(nombre, costo)
+        compras.push(objetoCompra);
+    }
+    return compras;
 }
 
-//-----------------------Calcular precio total del carrito-----------------------//
-
-function calcularTotal() {
-
-    return carrito.reduce((total, item) => {
-
-        const miItem = baseDeDatos.filter((itemBaseDatos) => {
-            return itemBaseDatos.id === parseInt(item);
-        });
-
-        return total + miItem[0].precio;
-    }, 0).toFixed(2);
+//------- FUNCION PARA CALCULAR COSTO -----//
+function calcularCosto(compras) {
+    let sumatoriaCosto = compras.reduce((acc, el) => acc + el.costo, 0)
+    alert(`El costo total de su compra es de: ${sumatoriaCosto} UYU.`);
+    return sumatoriaCosto;
 }
 
-//---------------Vacia el carrito y lo disponibiliza para recargarlo--------------//
-
-function vaciarCarrito() {
-    carrito = [];
-    renderizarCarrito();
+//-------- FUNCION PARA CALCULAR VALOR DE CUOTA -----//
+function valorCuota(costoTotal, pagoAdelanto, numeroCuotas) {
+    let total = 0;
+    if (pagoAdelanto > 0) {
+        total = costoTotal - pagoAdelanto;
+    } else {
+        total = costoTotal
+    }
+    let cuotaMes = 0
+    if (numeroCuotas <= 6) {
+        cuotaMes = total / numeroCuotas;
+    } else {
+        cuotaMes = total * 1.05 / numeroCuotas;
+    }
+    pintarPago(costoTotal, pagoAdelanto, numeroCuotas, cuotaMes)
+    return cuotaMes
 }
 
-DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+//--------- AVISO FINAL PARA MOSTRAR VALOR DE LA CUOTA ------//
+function avisoFinal(costoTotal, numeroCuotas, cuotaMes, pagoAdelanto) {
+    if (numeroCuotas <= 6) {
+        alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU.`)
+    } else if (numeroCuotas > 6) {
+        alert(`Usted ha seleccionado pagar ${costoTotal} UYU en ${numeroCuotas} cuotas de ${parseInt(cuotaMes)} UYU, realizando un pago por adelantado de ${pagoAdelanto} UYU (se ha aplicado un 5% de interes).`)
+    } else {
+        alert('Ningún dato ha sido ingresado.')
+    }
+}
 
-renderizarProductos();
-renderizarCarrito();
+//------------ MENU DE OPCIONES -----------//
+function procesarCarrito() {
+    let opcionSeleccionada = mostrarMenu();
+    while (opcionSeleccionada?.toLowerCase() != "esc") {
+        if (opcionSeleccionada != "") {
+            opcionSeleccionada = parseInt(opcionSeleccionada);
+            if (!isNaN(opcionSeleccionada)) {
+                switch (opcionSeleccionada) {
+                    case 1:
+                        compras = agregarCompras();
+                        pintarContenedor();
+                        break;
+                    case 2:
+                        let costoTotal = calcularCosto(compras);
+                        let pagoAdelanto = parseInt(prompt(`Ingrese si desea realizar un pago por adelantado.`))
+                        let numeroCuotas = parseInt(prompt('Ingrese número de cuotas en que desea pagar (de seleccionar el pago en más de 6 cuotas, aplica un interes del 5%).'));
+                        let cuota = valorCuota(costoTotal, pagoAdelanto, numeroCuotas)
+                        avisoFinal(costoTotal, numeroCuotas, cuota, pagoAdelanto)
+                        break;
+                    case 3:
+                        alert(JSON.stringify(compras));
+                        break;
+                    default:
+                        alert("Opcion Incorrecta");
+                        break;
+                }
+            } else {
+                alert("Opcion Incorrecta");
+            }
+        } else {
+            alert("Opcion Incorrecta");
+        }
+        opcionSeleccionada = mostrarMenu();
+    }
+}
 
+//--------- MENU PRINCIPAL ---------//
+function mostrarMenu() {
+    const OPCION = prompt(
+        'Bienvenido, seleccione una opción (ESC para salir)\n\n1. Agregar compras\n2. Definir forma de pago\n3. Ver carrito\n\nDebe ingresar compras para habilitar las otras funciones.');
+    return OPCION;
+}
+
+function main() {
+    procesarCarrito()
+}
+
+main();
