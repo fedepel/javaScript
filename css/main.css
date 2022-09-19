@@ -1,68 +1,84 @@
-.mainGrid{
-    grid-template-areas: 
-    "titulo titulo"
-    "parrafo parrafo"
-    "comprasGrid comprasGrid"
-    "pagoGrid pagoGrid"; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.titulo{
-    grid-area: titulo;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.container {
+    border: #CB0004 1px solid;
+    margin: 10px auto 10px auto;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
+}
+
+.row{
+    margin: 0;
+    justify-content: space-between;
+}
+
+.titulo1 {
+    background-color: #CB0004;
+    color: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px 5px 0 0;
+}
+
+.titulo2 {
     text-align: center;
-    text-transform: uppercase;
+    background-color: #CB0004;
     color: white;
-    background-color: black;
-    width: 80%;
-    margin: 5px auto 5px auto;
-    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
-.parrafo{
-    grid-area: parrafo;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: justify;
-    width: 80%;
-    margin: 5px auto 5px auto;
-    border: solid 2px black;
-    padding: 10px;
+.carroCss {
+    border: gray 1px solid;
+    border-radius: 5px;
+    margin: 1%;
+    padding: 0;
+    border: #CB0004 1px solid;
+    box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
 }
 
-.comprasGrid{
-    grid-area: comprasGrid;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.card {
+    margin: 1%;
+    border: #CB0004 1px solid;
+    box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
+}
+
+.card-title, .card-text {
     text-align: center;
-    text-transform: uppercase;
-    color: white;
-    background-color: black;
-    width: 80%;
-    margin: 5px auto 5px auto;
-    padding: 10px;
 }
 
-.cardName {
-    background-color: gray;
-    color: white;
+.btn2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto 0 auto;
 }
 
-.cardPrice {
-    background-color: black;
-    color: white;
+.lista {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 5px auto 5px auto ;
+    box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
 }
 
-.pagoGrid{
-    grid-area: pagoGrid;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-align: center;
-    text-transform: uppercase;
-    color: white;
-    background-color: black;
-    width: 80%;
-    margin: 5px auto 5px auto;
-    padding: 10px;
-}
-
-.costos {
-    background-color: red;
-    color: white;
+.precio-final {
+    font-weight: bold;
+    margin: 30px;
+    font-size: large;
+    border: #CB0004 solid 1px;
+    border-radius: 2px;
 }
