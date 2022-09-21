@@ -12,9 +12,18 @@
     box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
 }
 
-.row{
+.row {
     margin: 0;
     justify-content: space-between;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+}
+
+.logo {
+    height: 80px;
 }
 
 .titulo1 {
@@ -25,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px 5px 0 0;
+    border-radius: 0 5px 0 0;
 }
 
 .titulo2 {
@@ -34,8 +43,15 @@
     color: white;
     border-radius: 5px 5px 0 0;
     width: 100%;
-    margin-block-start: 0;
-    margin-block-end: 0;
+}
+
+.titulo3 {
+    text-align: center;
+    color: white;
+    background-color: #CB0004;
+    font-size: large;
+    width: 90%;
+    margin: 10px auto 10px auto;
 }
 
 .carroCss {
@@ -53,8 +69,19 @@
     box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
 }
 
-.card-title, .card-text {
+.card-title,
+.card-text {
     text-align: center;
+}
+
+.form-bar {
+    width: 90%;
+    margin: 5px auto 5px auto;
+}
+
+.form-text {
+    text-align: center;
+    font-weight: bold;
 }
 
 .btn2 {
@@ -62,7 +89,7 @@
     flex-direction: row;
     justify-content: center;
     width: 90%;
-    margin: 0 auto 0 auto;
+    margin: 15px auto 15px auto;
 }
 
 .lista {
@@ -71,7 +98,7 @@
     align-items: center;
     justify-content: space-between;
     width: 90%;
-    margin: 5px auto 5px auto ;
+    margin: 5px auto 5px auto;
     box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.8), 5px 5px 10px rgb(0, 0, 0, 0.25);
 }
 

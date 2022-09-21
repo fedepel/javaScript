@@ -17,6 +17,15 @@ const DOMcarrito = document.querySelector('#carrito');
 const DOMtotal = document.querySelector('#total');
 const DOMbotonVaciar = document.querySelector('#boton-vaciar');
 
+// Variables para elementos de autenticación y usuario
+
+let usuario;
+let formularioIdentificacion;
+let contenedorIdentificacion;
+let contenedorUsuario;
+let textoUsuario;
+let logOut;
+
 ////////////////////////////////////////////////////////////////////////////////
 //-------------------------------------Funciones------------------------------//
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,6 +66,59 @@ function renderizarProductos() {
         miNodo.appendChild(miNodoCardBody);
         DOMitems.appendChild(miNodo);
     });
+}
+
+//-------------------------Logeo y deslogeo del usuario-----------------------//
+
+function identificarUsuario(event) {
+    event.preventDefault();
+    usuario = inputUsuario.value;
+    formularioIdentificacion.reset();
+    actualizarUsuarioStorage();
+    mostrarTextoUsuario();
+}
+
+function mostrarTextoUsuario() {
+    contenedorIdentificacion.hidden = true;
+    contenedorUsuario.hidden = false;
+    textoUsuario.innerHTML += `Bienvenido ${usuario}!`;
+}
+
+function mostrarFormularioIdentificacion() {
+    contenedorIdentificacion.hidden = false;
+    contenedorUsuario.hidden = true;
+    textoUsuario.innerHTML = ``;
+}
+
+function actualizarUsuarioStorage() {
+    localStorage.setItem("usuario", usuario);
+}
+
+function eliminarStorage() {
+    localStorage.clear();
+    usuario = "";
+    carrito = [];
+    mostrarFormularioIdentificacion();
+    renderizarCarrito();
+}
+
+function inicializarElementos() {
+    formularioIdentificacion = document.getElementById(
+        "formularioIdentificacion"
+    );
+    inputUsuario = document.getElementById("inputUsuario");
+    contenedorIdentificacion = document.getElementById(
+        "contenedorIdentificacion"
+    );
+    contenedorUsuario = document.getElementById("contenedorUsuario");
+    textoUsuario = document.getElementById("textoUsuario");
+
+    logOut = document.getElementById("logOut");
+}
+
+function inicializarEventos() {
+    formularioIdentificacion.onsubmit = (event) => identificarUsuario(event);
+    logOut.onclick = eliminarStorage;
 }
 
 //-------------------------Evento para añadir al carrito-----------------------//
@@ -104,7 +166,14 @@ function renderizarCarrito() {
         DOMcarrito.appendChild(miNodo);
     });
 
+    actualizarCarritoStorage();
+
     DOMtotal.textContent = calcularTotal();
+}
+
+function actualizarCarritoStorage() {
+    let carritoJSON = JSON.stringify(carrito);
+    localStorage.setItem("carrito", carritoJSON);
 }
 
 //----------------Eliminar los productos seleccionados al carrito----------------//
@@ -141,8 +210,36 @@ function vaciarCarrito() {
     renderizarCarrito();
 }
 
-DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+//---------------Mantener usuario logeado y la info del carrito-------------------//
 
-renderizarProductos();
-renderizarCarrito();
+function obtenerCarritoStorage() {
+    let carritoJSON = localStorage.getItem("carrito");
+    if (carritoJSON) {
+        carrito = JSON.parse(carritoJSON);
+        renderizarCarrito();
+    }
+}
+
+function obtenerUsuarioStorage() {
+    let usuarioAlmacenado = localStorage.getItem("usuario");
+    if (usuarioAlmacenado) {
+        usuario = usuarioAlmacenado;
+        mostrarTextoUsuario();
+    }
+}
+
+//--------------------------------Main--------------------------------------------//
+
+function main() {
+    DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+
+    inicializarElementos();
+    inicializarEventos();
+    renderizarProductos();
+    renderizarCarrito();
+    obtenerCarritoStorage();
+    obtenerUsuarioStorage()
+}
+
+main()
 

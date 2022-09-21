@@ -13,13 +13,31 @@
 
 <body>
     <div class="container">
-        <h1 class="titulo1">JUEGOS NINTENDO SWITCH</h1>
+        <div class="header">
+            <img src="./images/switchLogo.png" class="logo" alt="Logo">
+            <h1 class="titulo1">JUEGOS NINTENDO SWITCH</h1>
+        </div>
         <div class="row">
             <main id="items" class="col row"></main>
             <aside class="col-sm-4 mt-3 carroCss">
-                <h2 class="titulo2">Carrito</h2>
+                <div id="contenedorUsuario" hidden>
+                    <h2 id="textoUsuario" class="titulo2"></h2>
+                    <button type="submit" class="btn btn-secondary btn2" id="logOut">Cerrar sesión</button>
+                </div>
+                <div id="contenedorIdentificacion">
+                    <h2 class="titulo2">Identificate</h2>
+                    <form id="formularioIdentificacion">
+                        <div>
+                            <label class="form-label form-text">Ingresa tu nombre</label>
+                            <input type="text" class="form-control form-bar" id="inputUsuario" required />
+                            <button type="submit" class="btn btn-secondary btn2">Identificate</button>
+                        </div>
+                    </form>
+                </div>
+                <h2 class="titulo3">Tu carrito</h2>
                 <ul id="carrito" class="list-group mt-3"></ul>
                 <p class="text-center precio-final">Total: <span id="total"></span> USD</p>
+                <button id="boton-comprar" class="btn btn-primary btn2">Comprar</button>
                 <button id="boton-vaciar" class="btn btn-danger btn2">Vaciar</button>
             </aside>
         </div>
@@ -27,7 +45,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-        <script src="./js/main.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
