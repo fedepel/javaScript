@@ -10,14 +10,15 @@ const baseDeDatos = [
     { id: 6, nombre: 'Pokemon Violet', precio: 120, imagen: '../images/pokemon-violet.jpg' }
 ];
 
+// Variables para elementos de autenticación y usuario
+
 let carrito = [];
 const divisa = 'USD';
-const DOMitems = document.querySelector('#items');
-const DOMcarrito = document.querySelector('#carrito');
-const DOMtotal = document.querySelector('#total');
-const DOMbotonVaciar = document.querySelector('#boton-vaciar');
-
-// Variables para elementos de autenticación y usuario
+const items = document.querySelector('#items');
+const carritoDOM = document.querySelector('#carrito');
+const totalDOM = document.querySelector('#total');
+const botonVaciar = document.querySelector('#boton-vaciar');
+const botonComprar = document.querySelector('#boton-comprar')
 
 let usuario;
 let formularioIdentificacion;
@@ -33,42 +34,52 @@ let logOut;
 //-------------------------Dibujar productos en el HTML-----------------------//
 
 function renderizarProductos() {
-    baseDeDatos.forEach((info) => {
+    baseDeDatos.forEach((elem) => {
 
-        const miNodo = document.createElement('div');
-        miNodo.classList.add('card', 'col-5');
+        const nodo = document.createElement('div');
+        nodo.classList.add('card', 'col-6');
 
-        const miNodoCardBody = document.createElement('div');
-        miNodoCardBody.classList.add('card-body');
+        const nodoCardBody = document.createElement('div');
+        nodoCardBody.classList.add('card-body');
 
-        const miNodoTitle = document.createElement('h5');
-        miNodoTitle.classList.add('card-title');
-        miNodoTitle.textContent = info.nombre;
+        const nodoTitle = document.createElement('h5');
+        nodoTitle.classList.add('card-title');
+        nodoTitle.textContent = elem.nombre;
 
-        const miNodoImagen = document.createElement('img');
-        miNodoImagen.classList.add('img-fluid');
-        miNodoImagen.setAttribute('src', info.imagen);
+        const nodoImagen = document.createElement('img');
+        nodoImagen.classList.add('img-fluid');
+        nodoImagen.setAttribute('src', elem.imagen);
 
-        const miNodoPrecio = document.createElement('p');
-        miNodoPrecio.classList.add('card-text');
-        miNodoPrecio.textContent = `${info.precio} ${divisa}`;
+        const nodoPrecio = document.createElement('p');
+        nodoPrecio.classList.add('card-text');
+        nodoPrecio.textContent = `${elem.precio} ${divisa}`;
 
-        const miNodoBoton = document.createElement('button');
-        miNodoBoton.classList.add('btn', 'btn-primary', 'btn2');
-        miNodoBoton.textContent = 'Agregar al carrito';
-        miNodoBoton.setAttribute('marcador', info.id);
-        miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
+        const nodoBoton = document.createElement('button');
+        nodoBoton.classList.add('btn', 'btn-primary', 'btn2');
+        nodoBoton.textContent = 'Agregar al carrito';
+        nodoBoton.setAttribute('marcador', elem.id);
+        nodoBoton.addEventListener('click', anyadirProductoAlCarrito);
 
-        miNodoCardBody.appendChild(miNodoImagen);
-        miNodoCardBody.appendChild(miNodoTitle);
-        miNodoCardBody.appendChild(miNodoPrecio);
-        miNodoCardBody.appendChild(miNodoBoton);
-        miNodo.appendChild(miNodoCardBody);
-        DOMitems.appendChild(miNodo);
+        nodoCardBody.appendChild(nodoImagen);
+        nodoCardBody.appendChild(nodoTitle);
+        nodoCardBody.appendChild(nodoPrecio);
+        nodoCardBody.appendChild(nodoBoton);
+        nodo.appendChild(nodoCardBody);
+        items.appendChild(nodo);
     });
 }
 
-//-------------------------Logeo y deslogeo del usuario-----------------------//
+//-------------------------Logueo y deslogueo del usuario-----------------------//
+
+function actualizarUsuarioStorage() {
+    localStorage.setItem("usuario", usuario);
+}
+
+function mostrarTextoUsuario() {
+    contenedorIdentificacion.hidden = true;
+    contenedorUsuario.hidden = false;
+    textoUsuario.innerHTML += `Bienvenido ${usuario}!`;
+}
 
 function identificarUsuario(event) {
     event.preventDefault();
@@ -78,20 +89,10 @@ function identificarUsuario(event) {
     mostrarTextoUsuario();
 }
 
-function mostrarTextoUsuario() {
-    contenedorIdentificacion.hidden = true;
-    contenedorUsuario.hidden = false;
-    textoUsuario.innerHTML += `Bienvenido ${usuario}!`;
-}
-
 function mostrarFormularioIdentificacion() {
     contenedorIdentificacion.hidden = false;
     contenedorUsuario.hidden = true;
     textoUsuario.innerHTML = ``;
-}
-
-function actualizarUsuarioStorage() {
-    localStorage.setItem("usuario", usuario);
 }
 
 function eliminarStorage() {
@@ -121,7 +122,7 @@ function inicializarEventos() {
     logOut.onclick = eliminarStorage;
 }
 
-//-------------------------Evento para añadir al carrito-----------------------//
+//----------------Agrega los productos seleccionados al carrito----------------//
 
 function anyadirProductoAlCarrito(evento) {
 
@@ -131,11 +132,9 @@ function anyadirProductoAlCarrito(evento) {
 
 }
 
-//----------------Agrega los productos seleccionados al carrito----------------//
-
 function renderizarCarrito() {
 
-    DOMcarrito.textContent = '';
+    carritoDOM.textContent = '';
 
     const carritoSinDuplicados = [...new Set(carrito)];
 
@@ -151,9 +150,9 @@ function renderizarCarrito() {
             return itemId === item ? total += 1 : total;
         }, 0);
 
-        const miNodo = document.createElement('li');
-        miNodo.classList.add('list-group-item', 'text-center', 'lista');
-        miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
+        const nodo = document.createElement('li');
+        nodo.classList.add('list-group-item', 'text-center', 'lista');
+        nodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
 
         const miBoton = document.createElement('button');
         miBoton.classList.add('btn', 'btn-danger', 'mx-2');
@@ -162,13 +161,13 @@ function renderizarCarrito() {
         miBoton.dataset.item = item;
         miBoton.addEventListener('click', borrarItemCarrito);
 
-        miNodo.appendChild(miBoton);
-        DOMcarrito.appendChild(miNodo);
+        nodo.appendChild(miBoton);
+        carritoDOM.appendChild(nodo);
     });
 
     actualizarCarritoStorage();
 
-    DOMtotal.textContent = calcularTotal();
+    totalDOM.textContent = calcularTotal();
 }
 
 function actualizarCarritoStorage() {
@@ -200,7 +199,7 @@ function calcularTotal() {
         });
 
         return total + miItem[0].precio;
-    }, 0).toFixed(2);
+    }, 0).toFixed(0);
 }
 
 //---------------Vacia el carrito y lo disponibiliza para recargarlo--------------//
@@ -210,7 +209,7 @@ function vaciarCarrito() {
     renderizarCarrito();
 }
 
-//---------------Mantener usuario logeado y la info del carrito-------------------//
+//---------------Mantener usuario logueado y la info del carrito-------------------//
 
 function obtenerCarritoStorage() {
     let carritoJSON = localStorage.getItem("carrito");
@@ -228,17 +227,26 @@ function obtenerUsuarioStorage() {
     }
 }
 
+//--------------------------------Efectuar compra---------------------------------//
+
+
+function finalizarCompra() {
+    carrito = [];
+    renderizarCarrito();
+    alert(`Muchas gracias por tu compra!`);
+}
+
 //--------------------------------Main--------------------------------------------//
 
 function main() {
-    DOMbotonVaciar.addEventListener('click', vaciarCarrito);
-
+    botonVaciar.addEventListener('click', vaciarCarrito);
+    botonComprar.addEventListener('click', finalizarCompra)
     inicializarElementos();
     inicializarEventos();
-    renderizarProductos();
-    renderizarCarrito();
     obtenerCarritoStorage();
     obtenerUsuarioStorage()
+    renderizarProductos();
+    renderizarCarrito();
 }
 
 main()

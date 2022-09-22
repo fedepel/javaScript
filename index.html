@@ -19,26 +19,30 @@
         </div>
         <div class="row">
             <main id="items" class="col row"></main>
-            <aside class="col-sm-4 mt-3 carroCss">
-                <div id="contenedorUsuario" hidden>
-                    <h2 id="textoUsuario" class="titulo2"></h2>
-                    <button type="submit" class="btn btn-secondary btn2" id="logOut">Cerrar sesión</button>
+            <aside class="col-sm-4 mt-2 mb-3">
+                <div class="carroCss">
+                    <div id="contenedorUsuario" hidden>
+                        <h2 id="textoUsuario" class="titulo2"></h2>
+                        <button type="submit" class="btn btn-secondary btn2" id="logOut">Cerrar sesión</button>
+                    </div>
+                    <div id="contenedorIdentificacion">
+                        <h2 class="titulo2">Identificate</h2>
+                        <form id="formularioIdentificacion">
+                            <div>
+                                <label class="form-label form-text">Ingresa tu nombre</label>
+                                <input type="text" class="form-control form-bar" id="inputUsuario" required />
+                                <button type="submit" class="btn btn-secondary btn2">Identificate</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div id="contenedorIdentificacion">
-                    <h2 class="titulo2">Identificate</h2>
-                    <form id="formularioIdentificacion">
-                        <div>
-                            <label class="form-label form-text">Ingresa tu nombre</label>
-                            <input type="text" class="form-control form-bar" id="inputUsuario" required />
-                            <button type="submit" class="btn btn-secondary btn2">Identificate</button>
-                        </div>
-                    </form>
+                <div class="carroCss">
+                    <h2 class="titulo2">Tu carrito</h2>
+                    <ul id="carrito" class="list-group mt-3"></ul>
+                    <p class="text-center precio-final">Total: <span id="total"></span> USD</p>
+                    <button id="boton-vaciar" class="btn btn-danger btn2">Vaciar carrito</button>
+                    <button id="boton-comprar" class="btn btn-primary btn2">Comprar</button>
                 </div>
-                <h2 class="titulo3">Tu carrito</h2>
-                <ul id="carrito" class="list-group mt-3"></ul>
-                <p class="text-center precio-final">Total: <span id="total"></span> USD</p>
-                <button id="boton-comprar" class="btn btn-primary btn2">Comprar</button>
-                <button id="boton-vaciar" class="btn btn-danger btn2">Vaciar</button>
             </aside>
         </div>
     </div>
