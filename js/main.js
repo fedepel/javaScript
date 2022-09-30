@@ -58,6 +58,7 @@ function renderizarProductos() {
         nodoBoton.classList.add('btn', 'btn-primary', 'btn2');
         nodoBoton.textContent = 'Agregar al carrito';
         nodoBoton.setAttribute('marcador', elem.id);
+        nodoBoton.setAttribute('nombre', elem.nombre);
         nodoBoton.addEventListener('click', anyadirProductoAlCarrito);
 
         nodoCardBody.appendChild(nodoImagen);
@@ -125,11 +126,15 @@ function inicializarEventos() {
 //----------------Agrega los productos seleccionados al carrito----------------//
 
 function anyadirProductoAlCarrito(evento) {
-
-    carrito.push(evento.target.getAttribute('marcador'))
-
+    carrito.push(evento.target.getAttribute('marcador'));
     renderizarCarrito();
-
+    Toastify({
+        text: `Item agregado al carrito`,
+        duration: 3000,
+        style: {
+            background: 'linear-gradient(to right, #002d72, #96c92d)',
+        }
+    }).showToast();
 }
 
 function renderizarCarrito() {
@@ -178,13 +183,17 @@ function actualizarCarritoStorage() {
 //----------------Eliminar los productos seleccionados al carrito----------------//
 
 function borrarItemCarrito(evento) {
-
     const id = evento.target.dataset.item;
-
     carrito = carrito.filter((carritoId) => {
         return carritoId !== id;
     });
-
+    Toastify({
+        text: `Item eliminado del carrito`,
+        duration: 3000,
+        style: {
+            background: 'linear-gradient(to right, #002d72, #CB0004)',
+        }
+    }).showToast();
     renderizarCarrito();
 }
 
@@ -205,8 +214,24 @@ function calcularTotal() {
 //---------------Vacia el carrito y lo disponibiliza para recargarlo--------------//
 
 function vaciarCarrito() {
-    carrito = [];
-    renderizarCarrito();
+    carrito.length > 0 ? seguroDeVaciar() : carritoVacio();
+}
+
+function seguroDeVaciar() {
+    Swal.fire({
+        title: 'Desea vaciar su carrito?',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#96c92d',
+        cancelButtonText: 'Mantener carrito',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Vaciar carrito'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            carrito = [];
+            renderizarCarrito();
+        }
+    })
 }
 
 //---------------Mantener usuario logueado y la info del carrito-------------------//
@@ -231,16 +256,44 @@ function obtenerUsuarioStorage() {
 
 
 function finalizarCompra() {
-    carrito = [];
-    renderizarCarrito();
-    alert(`Muchas gracias por tu compra!`);
+    carrito.length > 0 ? alertaConfirmacion() : carritoVacio();
+}
+
+function alertaConfirmacion() {
+    Swal.fire({
+        title: 'Confirmación de compra',
+        text: "Está seguro que desea finalizar su compra?",
+        imageUrl: "https://images.nintendolife.com/3afd16480e874/super-mario-thinking.large.jpg",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonText: 'No',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Muchas gracias por su compra!',
+            )
+            carrito = [];
+            renderizarCarrito();
+        }
+    })
+}
+
+function carritoVacio() {
+    Swal.fire({
+        title: 'El carrito está vacío!',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Seguir comprando'
+    })
 }
 
 //--------------------------------Main--------------------------------------------//
 
 function main() {
     botonVaciar.addEventListener('click', vaciarCarrito);
-    botonComprar.addEventListener('click', finalizarCompra)
+    botonComprar.addEventListener('click', finalizarCompra);
     inicializarElementos();
     inicializarEventos();
     obtenerCarritoStorage();
