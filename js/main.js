@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 //-------------------------------------Variables------------------------------//
 ////////////////////////////////////////////////////////////////////////////////
-const baseDeDatos = [
-    { id: 1, nombre: 'Super Mario Odissey', precio: 90, imagen: '../images/super-mario-odyssey.jpg' },
-    { id: 2, nombre: 'Mario Party Superstars', precio: 90, imagen: '../images/mario-party-superstars.jpg' },
-    { id: 3, nombre: 'Zelda - Breath of the wild', precio: 90, imagen: '../images/zelda-breath-of-the-wild.jpg' },
-    { id: 4, nombre: 'Pokemon Legends - ARCEUS', precio: 110, imagen: '../images/pokemon-legends-arceus.jpg' },
-    { id: 5, nombre: 'Pokemon Scarlet', precio: 120, imagen: '../images/pokemon-scarlet.jpg' },
-    { id: 6, nombre: 'Pokemon Violet', precio: 120, imagen: '../images/pokemon-violet.jpg' }
-];
+// const baseDeDatos = [
+//     { id: 1, nombre: 'Super Mario Odissey', precio: 90, imagen: 'images/super-mario-odyssey.jpg' },
+//     { id: 2, nombre: 'Mario Party Superstars', precio: 90, imagen: 'images/mario-party-superstars.jpg' },
+//     { id: 3, nombre: 'Zelda - Breath of the wild', precio: 90, imagen: 'images/zelda-breath-of-the-wild.jpg' },
+//     { id: 4, nombre: 'Pokemon Legends - ARCEUS', precio: 110, imagen: 'images/pokemon-legends-arceus.jpg' },
+//     { id: 5, nombre: 'Pokemon Scarlet', precio: 120, imagen: 'images/pokemon-scarlet.jpg' },
+//     { id: 6, nombre: 'Pokemon Violet', precio: 120, imagen: 'images/pokemon-violet.jpg' }
+// ];
 
 // Variables para elementos de autenticación y usuario
 
@@ -289,6 +289,18 @@ function carritoVacio() {
     })
 }
 
+//-------------------------Consultar productos json-------------------------------//
+
+function consultarProductosJson() {
+    fetch("data.json")
+    .then((response) => response.json())
+    .then((data) => {
+        baseDeDatos = [...data]
+        renderizarProductos();
+    })
+    .catch((error) => console.log(error))
+}
+
 //--------------------------------Main--------------------------------------------//
 
 function main() {
@@ -296,11 +308,10 @@ function main() {
     botonComprar.addEventListener('click', finalizarCompra);
     inicializarElementos();
     inicializarEventos();
+    consultarProductosJson();
     obtenerCarritoStorage();
-    obtenerUsuarioStorage()
-    renderizarProductos();
+    obtenerUsuarioStorage();
     renderizarCarrito();
 }
 
 main()
-
