@@ -288,6 +288,8 @@ function consultarProductosJson() {
     .then((data) => {
         baseDeDatos = [...data]
         renderizarProductos();
+        obtenerUsuarioStorage();
+        obtenerCarritoStorage();
         renderizarCarrito();
     })
     .catch((error) => console.log(error))
@@ -298,11 +300,9 @@ function consultarProductosJson() {
 function main() {
     botonVaciar.addEventListener('click', vaciarCarrito);
     botonComprar.addEventListener('click', finalizarCompra);
+    consultarProductosJson();
     inicializarElementos();
     inicializarEventos();
-    consultarProductosJson();
-    obtenerCarritoStorage();
-    obtenerUsuarioStorage();
 }
 
 main()
