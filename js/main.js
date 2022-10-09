@@ -283,7 +283,7 @@ function carritoVacio() {
 //-------------------------Consultar productos json-------------------------------//
 
 function consultarProductosJson() {
-    fetch("data.json")
+    fetch("https://633f84d3e44b83bc73bb8b77.mockapi.io/api/v1/articulos")
     .then((response) => response.json())
     .then((data) => {
         baseDeDatos = [...data]
@@ -291,6 +291,7 @@ function consultarProductosJson() {
         obtenerUsuarioStorage();
         obtenerCarritoStorage();
         renderizarCarrito();
+        console.log(baseDeDatos)
     })
     .catch((error) => console.log(error))
 }
