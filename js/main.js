@@ -28,12 +28,9 @@ function renderizarProductos() {
     baseDeDatos.forEach((elem) => {
 
         const nodo = document.createElement('div');
-        nodo.classList.add('card', 'col-6');
+        nodo.classList.add('card', 'col-6', 'card-body');
 
-        const nodoCardBody = document.createElement('div');
-        nodoCardBody.classList.add('card-body');
-
-        const nodoTitle = document.createElement('h5');
+        const nodoTitle = document.createElement('h2');
         nodoTitle.classList.add('card-title');
         nodoTitle.textContent = elem.nombre;
 
@@ -41,9 +38,9 @@ function renderizarProductos() {
         nodoImagen.classList.add('img-fluid');
         nodoImagen.setAttribute('src', elem.imagen);
 
-        const nodoPrecio = document.createElement('p');
+        const nodoPrecio = document.createElement('h3');
         nodoPrecio.classList.add('card-text');
-        nodoPrecio.textContent = `${elem.precio} ${divisa}`;
+        nodoPrecio.textContent = `-${elem.precio} ${divisa}-`;
 
         const nodoBoton = document.createElement('button');
         nodoBoton.classList.add('btn', 'btn-primary', 'btn2');
@@ -52,11 +49,10 @@ function renderizarProductos() {
         nodoBoton.setAttribute('nombre', elem.nombre);
         nodoBoton.addEventListener('click', anyadirProductoAlCarrito);
 
-        nodoCardBody.appendChild(nodoImagen);
-        nodoCardBody.appendChild(nodoTitle);
-        nodoCardBody.appendChild(nodoPrecio);
-        nodoCardBody.appendChild(nodoBoton);
-        nodo.appendChild(nodoCardBody);
+        nodo.appendChild(nodoImagen);
+        nodo.appendChild(nodoTitle);
+        nodo.appendChild(nodoPrecio);
+        nodo.appendChild(nodoBoton);
         items.appendChild(nodo);
     });
 }
@@ -148,12 +144,11 @@ function renderizarCarrito() {
 
         const nodo = document.createElement('li');
         nodo.classList.add('list-group-item', 'text-center', 'lista');
-        nodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
+        nodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre}`;
 
         const miBoton = document.createElement('button');
         miBoton.classList.add('btn', 'btn-danger', 'mx-2');
         miBoton.textContent = 'X';
-        miBoton.style.marginLeft = '1rem';
         miBoton.dataset.item = item;
         miBoton.addEventListener('click', borrarItemCarrito);
 

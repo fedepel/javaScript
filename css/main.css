@@ -67,6 +67,14 @@
     text-align: center;
 }
 
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-size: 1.25rem;
+}
+
 .form-bar {
     width: 90%;
     margin: 5px auto 5px auto;
