@@ -144,7 +144,14 @@ function renderizarCarrito() {
 
         const nodo = document.createElement('li');
         nodo.classList.add('list-group-item', 'text-center', 'lista');
-        nodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre}`;
+
+        const numItem = document.createElement('p');
+        numItem.classList.add('numero-item');
+        numItem.textContent = `${numeroUnidadesItem}`;
+
+        const nomItem = document.createElement('p');
+        nomItem.classList.add('nombre-item');
+        nomItem.textContent = `${miItem[0].nombre}`;
 
         const miBoton = document.createElement('button');
         miBoton.classList.add('btn', 'btn-danger', 'mx-2');
@@ -152,6 +159,8 @@ function renderizarCarrito() {
         miBoton.dataset.item = item;
         miBoton.addEventListener('click', borrarItemCarrito);
 
+        nodo.appendChild(numItem);
+        nodo.appendChild(nomItem);
         nodo.appendChild(miBoton);
         carritoDOM.appendChild(nodo);
     });

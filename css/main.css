@@ -75,6 +75,22 @@
     font-size: 1.25rem;
 }
 
+.numero-item, .nombre-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto 0 auto 0;
+}
+
+.numero-item {
+    background-color: grey;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+}
+
 .form-bar {
     width: 90%;
     margin: 5px auto 5px auto;
